@@ -1,8 +1,17 @@
 # Práctica: Análisis, implementación y prueba de máquinas de aprendizaje supervisado mediante LOOCV
 
-**Repositorio:** pendiente de asignar  
-**GitHub Pages:** pendiente de publicar  
-**Binder:** pendiente de configurar
+**Repositorio GitHub:**  
+https://github.com/antoniot73/ml_loocv_diabetes_supervisado
+
+**URL Binder:**  
+https://mybinder.org/v2/gh/antoniot73/ml_loocv_diabetes_supervisado/main?filepath=notebooks/practica_loocv_diabetes_supervisado.ipynb
+
+**GitHub Page:**  
+https://antoniot73.github.io/ml_loocv_diabetes_supervisado/notebooks/practica_loocv_diabetes_supervisado.html
+
+**Dataset utilizado:**  
+https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database
+
 
 ---
 
