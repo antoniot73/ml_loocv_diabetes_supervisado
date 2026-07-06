@@ -8563,6 +8563,106 @@ $$</p>
     <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_scroll</span><span class="p">))</span>
 
 
+
+<span class="k">def</span><span class="w"> </span><span class="nf">display_responsive_table</span><span class="p">(</span>
+    <span class="n">df_input</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Tabla"</span><span class="p">,</span>
+    <span class="n">min_width_px</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">720</span><span class="p">,</span>
+    <span class="n">index</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Muestra una tabla HTML con desplazamiento horizontal responsivo.</span>
+
+<span class="sd">    Esta función evita que las tablas anchas se desborden en el notebook</span>
+<span class="sd">    o en el HTML exportado. El contenido queda dentro de un contenedor</span>
+<span class="sd">    con scroll horizontal y conserva un estilo visual coherente con la</span>
+<span class="sd">    práctica.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_input: DataFrame que se desea mostrar.</span>
+<span class="sd">        title: Título descriptivo de la tabla.</span>
+<span class="sd">        min_width_px: Ancho mínimo de la tabla para activar scroll horizontal.</span>
+<span class="sd">        index: Indica si se conserva el índice del DataFrame.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Renderiza una tabla HTML responsiva.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: Si df_input no es un DataFrame.</span>
+<span class="sd">        ValueError: Si min_width_px no es positivo.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df_input</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"df_input debe ser un pandas DataFrame."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">min_width_px</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"min_width_px debe ser un entero positivo."</span><span class="p">)</span>
+
+    <span class="n">html_table</span> <span class="o">=</span> <span class="n">df_input</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">    &lt;h4&gt;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&lt;/h4&gt;</span>
+<span class="s2">    &lt;div class="responsive-table-wrapper" style="</span>
+<span class="s2">        width: 100%;</span>
+<span class="s2">        max-width: 100%;</span>
+<span class="s2">        overflow-x: auto;</span>
+<span class="s2">        overflow-y: hidden;</span>
+<span class="s2">        border: 1px solid #b8c2cc;</span>
+<span class="s2">        border-radius: 6px;</span>
+<span class="s2">        margin: 12px 0 16px 0;</span>
+<span class="s2">        -webkit-overflow-scrolling: touch;</span>
+<span class="s2">    "&gt;</span>
+<span class="s2">    &lt;style&gt;</span>
+<span class="s2">        .responsive-table-wrapper table </span><span class="se">{{</span>
+<span class="s2">            border-collapse: collapse;</span>
+<span class="s2">            width: 100%;</span>
+<span class="s2">            min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px;</span>
+<span class="s2">            font-size: 14px;</span>
+<span class="s2">            color: #111111 !important;</span>
+<span class="s2">            background-color: #ffffff !important;</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">        .responsive-table-wrapper th </span><span class="se">{{</span>
+<span class="s2">            background-color: #e8eef5 !important;</span>
+<span class="s2">            color: #000000 !important;</span>
+<span class="s2">            font-weight: 700;</span>
+<span class="s2">            text-align: center;</span>
+<span class="s2">            padding: 9px;</span>
+<span class="s2">            border: 1px solid #b8c2cc;</span>
+<span class="s2">            white-space: nowrap;</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">        .responsive-table-wrapper td </span><span class="se">{{</span>
+<span class="s2">            padding: 9px;</span>
+<span class="s2">            text-align: center;</span>
+<span class="s2">            border: 1px solid #d9dee5;</span>
+<span class="s2">            color: #111111 !important;</span>
+<span class="s2">            font-weight: 500;</span>
+<span class="s2">            white-space: nowrap;</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">        .responsive-table-wrapper tr:nth-child(even) td </span><span class="se">{{</span>
+<span class="s2">            background-color: #f3f6fa !important;</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">        .responsive-table-wrapper tr:nth-child(odd) td </span><span class="se">{{</span>
+<span class="s2">            background-color: #ffffff !important;</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">        .responsive-table-wrapper tr:hover td </span><span class="se">{{</span>
+<span class="s2">            background-color: #dcecff !important;</span>
+<span class="s2">            color: #000000 !important;</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">        @media (max-width: 768px) </span><span class="se">{{</span>
+<span class="s2">            .responsive-table-wrapper table </span><span class="se">{{</span>
+<span class="s2">                min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px;</span>
+<span class="s2">                font-size: 13px;</span>
+<span class="s2">            </span><span class="se">}}</span>
+<span class="s2">            .responsive-table-wrapper th,</span>
+<span class="s2">            .responsive-table-wrapper td </span><span class="se">{{</span>
+<span class="s2">                padding: 7px;</span>
+<span class="s2">            </span><span class="se">}}</span>
+<span class="s2">        </span><span class="se">}}</span>
+<span class="s2">    &lt;/style&gt;</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">html_table</span><span class="si">}</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    """</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">display_responsive_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">max_width_px</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">650</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Muestra una imagen PNG de forma responsiva dentro del notebook y HTML exportado.</span>
 
@@ -8654,14 +8754,14 @@ $$</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 19:33:07,606 | INFO | Dataset cargado correctamente desde data\diabetes.csv
+<pre>2026-07-05 20:24:12,596 | INFO | Dataset cargado correctamente desde data\diabetes.csv
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 19:33:07,613 | INFO | Validación estructural completada correctamente.
+<pre>2026-07-05 20:24:12,596 | INFO | Validación estructural completada correctamente.
 </pre>
 </div>
 </div>
@@ -18411,14 +18511,14 @@ Vector y: (768,)
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 19:33:08,108 | INFO | Modelos construidos: ['Random Forest', 'SVM Lineal', 'Red Neuronal MLP']
+<pre>2026-07-05 20:24:12,892 | INFO | Modelos construidos: ['Random Forest', 'SVM Lineal', 'Red Neuronal MLP']
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 19:33:08,110 | INFO | Se encontró caché de predicciones LOOCV: outputs\tablas\predicciones_loocv_cache.csv
+<pre>2026-07-05 20:24:12,893 | INFO | Se encontró caché de predicciones LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 </pre>
 </div>
 </div>
@@ -18575,7 +18675,12 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <span class="n">metrics_path</span> <span class="o">=</span> <span class="n">OUTPUT_TABLES</span> <span class="o">/</span> <span class="s2">"metricas_loocv_modelos.csv"</span>
 <span class="n">metrics_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">metrics_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">display</span><span class="p">(</span><span class="n">metrics_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">display_responsive_table</span><span class="p">(</span>
+    <span class="n">metrics_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Tabla comparativa de métricas LOOCV"</span><span class="p">,</span>
+    <span class="n">min_width_px</span><span class="o">=</span><span class="mi">980</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tabla guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">metrics_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
@@ -18590,24 +18695,67 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
+<h4>Tabla comparativa de métricas LOOCV</h4>
+<div class="responsive-table-wrapper" style="
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border: 1px solid #b8c2cc;
+        border-radius: 6px;
+        margin: 12px 0 16px 0;
+        -webkit-overflow-scrolling: touch;
+    ">
+<style>
+        .responsive-table-wrapper table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 980px;
+            font-size: 14px;
+            color: #111111 !important;
+            background-color: #ffffff !important;
+        }
+        .responsive-table-wrapper th {
+            background-color: #e8eef5 !important;
+            color: #000000 !important;
+            font-weight: 700;
+            text-align: center;
+            padding: 9px;
+            border: 1px solid #b8c2cc;
+            white-space: nowrap;
+        }
+        .responsive-table-wrapper td {
+            padding: 9px;
+            text-align: center;
+            border: 1px solid #d9dee5;
+            color: #111111 !important;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .responsive-table-wrapper tr:nth-child(even) td {
+            background-color: #f3f6fa !important;
+        }
+        .responsive-table-wrapper tr:nth-child(odd) td {
+            background-color: #ffffff !important;
+        }
+        .responsive-table-wrapper tr:hover td {
+            background-color: #dcecff !important;
+            color: #000000 !important;
+        }
+        @media (max-width: 768px) {
+            .responsive-table-wrapper table {
+                min-width: 980px;
+                font-size: 13px;
+            }
+            .responsive-table-wrapper th,
+            .responsive-table-wrapper td {
+                padding: 7px;
+            }
+        }
+    </style>
 <table border="1" class="dataframe">
 <thead>
 <tr style="text-align: right;">
-<th></th>
 <th>Modelo</th>
 <th>TN</th>
 <th>FP</th>
@@ -18623,7 +18771,6 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 </thead>
 <tbody>
 <tr>
-<th>0</th>
 <td>Random Forest</td>
 <td>373</td>
 <td>127</td>
@@ -18637,7 +18784,6 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <td>0.8654</td>
 </tr>
 <tr>
-<th>1</th>
 <td>SVM Lineal</td>
 <td>387</td>
 <td>113</td>
@@ -18651,7 +18797,6 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <td>0.8377</td>
 </tr>
 <tr>
-<th>2</th>
 <td>Red Neuronal MLP</td>
 <td>401</td>
 <td>99</td>
@@ -19003,7 +19148,12 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="n">display_responsive_image</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">max_width_px</span><span class="o">=</span><span class="mi">650</span><span class="p">)</span>
 
-<span class="n">display</span><span class="p">(</span><span class="n">importance_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">display_responsive_table</span><span class="p">(</span>
+    <span class="n">importance_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Importancia de variables - Random Forest"</span><span class="p">,</span>
+    <span class="n">min_width_px</span><span class="o">=</span><span class="mi">620</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tabla guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">importance_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -19032,66 +19182,101 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
+<h4>Importancia de variables - Random Forest</h4>
+<div class="responsive-table-wrapper" style="
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border: 1px solid #b8c2cc;
+        border-radius: 6px;
+        margin: 12px 0 16px 0;
+        -webkit-overflow-scrolling: touch;
+    ">
+<style>
+        .responsive-table-wrapper table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 620px;
+            font-size: 14px;
+            color: #111111 !important;
+            background-color: #ffffff !important;
+        }
+        .responsive-table-wrapper th {
+            background-color: #e8eef5 !important;
+            color: #000000 !important;
+            font-weight: 700;
+            text-align: center;
+            padding: 9px;
+            border: 1px solid #b8c2cc;
+            white-space: nowrap;
+        }
+        .responsive-table-wrapper td {
+            padding: 9px;
+            text-align: center;
+            border: 1px solid #d9dee5;
+            color: #111111 !important;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .responsive-table-wrapper tr:nth-child(even) td {
+            background-color: #f3f6fa !important;
+        }
+        .responsive-table-wrapper tr:nth-child(odd) td {
+            background-color: #ffffff !important;
+        }
+        .responsive-table-wrapper tr:hover td {
+            background-color: #dcecff !important;
+            color: #000000 !important;
+        }
+        @media (max-width: 768px) {
+            .responsive-table-wrapper table {
+                min-width: 620px;
+                font-size: 13px;
+            }
+            .responsive-table-wrapper th,
+            .responsive-table-wrapper td {
+                padding: 7px;
+            }
+        }
+    </style>
 <table border="1" class="dataframe">
 <thead>
 <tr style="text-align: right;">
-<th></th>
 <th>variable</th>
 <th>importancia</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th>1</th>
 <td>Glucose</td>
 <td>0.3682</td>
 </tr>
 <tr>
-<th>5</th>
 <td>BMI</td>
 <td>0.1957</td>
 </tr>
 <tr>
-<th>7</th>
 <td>Age</td>
 <td>0.1460</td>
 </tr>
 <tr>
-<th>0</th>
 <td>Pregnancies</td>
 <td>0.0727</td>
 </tr>
 <tr>
-<th>6</th>
 <td>DiabetesPedigreeFunction</td>
 <td>0.0707</td>
 </tr>
 <tr>
-<th>4</th>
 <td>Insulin</td>
 <td>0.0589</td>
 </tr>
 <tr>
-<th>3</th>
 <td>SkinThickness</td>
 <td>0.0440</td>
 </tr>
 <tr>
-<th>2</th>
 <td>BloodPressure</td>
 <td>0.0437</td>
 </tr>
