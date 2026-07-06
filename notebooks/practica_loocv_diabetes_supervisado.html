@@ -7875,6 +7875,65 @@ div.output_area pre {
     body { font-family: Arial, Helvetica, sans-serif !important; }
     .pagebreak { page-break-before: always; }
 }
+
+/* Ajuste responsivo robusto para tablas anchas en móviles */
+.jp-RenderedHTMLCommon .responsive-table-wrapper,
+.jp-MarkdownOutput .responsive-table-wrapper,
+.rendered_html .responsive-table-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch !important;
+    display: block !important;
+    box-sizing: border-box !important;
+}
+
+.jp-RenderedHTMLCommon .responsive-table-wrapper table,
+.jp-MarkdownOutput .responsive-table-wrapper table,
+.rendered_html .responsive-table-wrapper table {
+    width: max-content !important;
+    min-width: var(--table-min-width, 760px) !important;
+    max-width: none !important;
+    table-layout: auto !important;
+    border-collapse: collapse !important;
+    white-space: nowrap !important;
+}
+
+.jp-RenderedHTMLCommon .responsive-table-wrapper th,
+.jp-MarkdownOutput .responsive-table-wrapper th,
+.rendered_html .responsive-table-wrapper th,
+.jp-RenderedHTMLCommon .responsive-table-wrapper td,
+.jp-MarkdownOutput .responsive-table-wrapper td,
+.rendered_html .responsive-table-wrapper td {
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    vertical-align: middle !important;
+}
+
+.jp-RenderedHTMLCommon .responsive-table-wrapper code,
+.jp-MarkdownOutput .responsive-table-wrapper code,
+.rendered_html .responsive-table-wrapper code {
+    white-space: nowrap !important;
+    word-break: normal !important;
+}
+
+@media (max-width: 768px) {
+    .jp-RenderedHTMLCommon,
+    .jp-MarkdownOutput,
+    .rendered_html {
+        overflow-x: hidden !important;
+    }
+
+    .jp-RenderedHTMLCommon .responsive-table-wrapper,
+    .jp-MarkdownOutput .responsive-table-wrapper,
+    .rendered_html .responsive-table-wrapper {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
 </style>
 </div>
 </div>
@@ -8101,7 +8160,8 @@ $$</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="4.-Implementaci%C3%B3n-en-Python">4. Implementación en Python<a class="anchor-link" href="#4.-Implementaci%C3%B3n-en-Python">¶</a></h2><p>La implementación se realiza en Python utilizando una estructura modular dentro del notebook. Se conserva el estilo de la práctica de referencia: configuración de rutas, logging, carga de datos, validación, visualización con scroll, preparación de variables, entrenamiento con LOOCV, evaluación mediante matrices de confusión, tablas comparativas y generación de gráficas.</p>
-<h3 id="Paquetes-de-Python-utilizados">Paquetes de Python utilizados<a class="anchor-link" href="#Paquetes-de-Python-utilizados">¶</a></h3><table>
+<h3 id="Paquetes-de-Python-utilizados">Paquetes de Python utilizados<a class="anchor-link" href="#Paquetes-de-Python-utilizados">¶</a></h3><div class="responsive-table-wrapper" style="--table-min-width: 820px; border: 1px solid #b8c2cc; border-radius: 6px; margin: 12px 0 16px 0;">
+<table>
 <thead>
 <tr>
 <th>Paquete</th>
@@ -8109,60 +8169,22 @@ $$</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>pathlib</code></td>
-<td>Gestión de rutas del proyecto.</td>
-</tr>
-<tr>
-<td><code>logging</code></td>
-<td>Registro de eventos del pipeline.</td>
-</tr>
-<tr>
-<td><code>numpy</code></td>
-<td>Operaciones numéricas.</td>
-</tr>
-<tr>
-<td><code>pandas</code></td>
-<td>Carga, validación y manipulación del dataset.</td>
-</tr>
-<tr>
-<td><code>matplotlib</code></td>
-<td>Generación de gráficas.</td>
-</tr>
-<tr>
-<td><code>IPython.display</code></td>
-<td>Visualización HTML del dataset con scroll.</td>
-</tr>
-<tr>
-<td><code>sklearn.model_selection</code></td>
-<td>Implementación de LOOCV mediante <code>LeaveOneOut</code> y <code>cross_val_predict</code>.</td>
-</tr>
-<tr>
-<td><code>sklearn.pipeline</code></td>
-<td>Integración de escalamiento y modelo sin fuga de datos.</td>
-</tr>
-<tr>
-<td><code>sklearn.preprocessing</code></td>
-<td>Estandarización de variables.</td>
-</tr>
-<tr>
-<td><code>sklearn.ensemble</code></td>
-<td>Implementación de Random Forest.</td>
-</tr>
-<tr>
-<td><code>sklearn.svm</code></td>
-<td>Implementación de SVM Lineal.</td>
-</tr>
-<tr>
-<td><code>sklearn.neural_network</code></td>
-<td>Implementación de Red Neuronal MLP.</td>
-</tr>
-<tr>
-<td><code>sklearn.metrics</code></td>
-<td>Matrices de confusión y métricas de clasificación.</td>
-</tr>
+<tr><td><code>pathlib</code></td><td>Gestión de rutas del proyecto.</td></tr>
+<tr><td><code>logging</code></td><td>Registro de eventos del pipeline.</td></tr>
+<tr><td><code>numpy</code></td><td>Operaciones numéricas.</td></tr>
+<tr><td><code>pandas</code></td><td>Carga, validación y manipulación del dataset.</td></tr>
+<tr><td><code>matplotlib</code></td><td>Generación de gráficas.</td></tr>
+<tr><td><code>IPython.display</code></td><td>Visualización HTML del dataset con scroll.</td></tr>
+<tr><td><code>sklearn.model_selection</code></td><td>Implementación de LOOCV mediante <code>LeaveOneOut</code> y <code>cross_val_predict</code>.</td></tr>
+<tr><td><code>sklearn.pipeline</code></td><td>Integración de escalamiento y modelo sin fuga de datos.</td></tr>
+<tr><td><code>sklearn.preprocessing</code></td><td>Estandarización de variables.</td></tr>
+<tr><td><code>sklearn.ensemble</code></td><td>Implementación de Random Forest.</td></tr>
+<tr><td><code>sklearn.svm</code></td><td>Implementación de SVM Lineal.</td></tr>
+<tr><td><code>sklearn.neural_network</code></td><td>Implementación de Red Neuronal MLP.</td></tr>
+<tr><td><code>sklearn.metrics</code></td><td>Matrices de confusión y métricas de clasificación.</td></tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -8230,6 +8252,31 @@ $$</p>
 <span class="s2">    .rendered_html table {</span>
 <span class="s2">        max-width: 100%;</span>
 <span class="s2">    }</span>
+
+<span class="s2">    .responsive-table-wrapper {</span>
+<span class="s2">        width: 100% !important;</span>
+<span class="s2">        max-width: 100% !important;</span>
+<span class="s2">        overflow-x: auto !important;</span>
+<span class="s2">        -webkit-overflow-scrolling: touch !important;</span>
+<span class="s2">        display: block !important;</span>
+<span class="s2">        box-sizing: border-box !important;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    .responsive-table-wrapper table {</span>
+<span class="s2">        width: max-content !important;</span>
+<span class="s2">        max-width: none !important;</span>
+<span class="s2">        table-layout: auto !important;</span>
+<span class="s2">        white-space: nowrap !important;</span>
+<span class="s2">    }</span>
+
+<span class="s2">    .responsive-table-wrapper th,</span>
+<span class="s2">    .responsive-table-wrapper td,</span>
+<span class="s2">    .responsive-table-wrapper code {</span>
+<span class="s2">        white-space: nowrap !important;</span>
+<span class="s2">        word-break: normal !important;</span>
+<span class="s2">        overflow-wrap: normal !important;</span>
+<span class="s2">    }</span>
+
 
 <span class="s2">    @media (max-width: 768px) {</span>
 <span class="s2">        .rendered_html {</span>
@@ -8319,6 +8366,31 @@ $$</p>
     .rendered_html table {
         max-width: 100%;
     }
+
+    .responsive-table-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: block !important;
+        box-sizing: border-box !important;
+    }
+
+    .responsive-table-wrapper table {
+        width: max-content !important;
+        max-width: none !important;
+        table-layout: auto !important;
+        white-space: nowrap !important;
+    }
+
+    .responsive-table-wrapper th,
+    .responsive-table-wrapper td,
+    .responsive-table-wrapper code {
+        white-space: nowrap !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+    }
+
 
     @media (max-width: 768px) {
         .rendered_html {
@@ -8489,6 +8561,7 @@ $$</p>
     <span class="n">html_scroll</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">    &lt;h4 style="margin-top: 12px; margin-bottom: 10px;"&gt;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&lt;/h4&gt;</span>
 <span class="s2">    &lt;div class="responsive-table-wrapper" style="</span>
+<span class="s2">        --table-min-width: 760px;</span>
 <span class="s2">        max-height: </span><span class="si">{</span><span class="n">height_px</span><span class="si">}</span><span class="s2">px;</span>
 <span class="s2">        max-width: 100%;</span>
 <span class="s2">        overflow-x: auto;</span>
@@ -8500,9 +8573,11 @@ $$</p>
 <span class="s2">    "&gt;</span>
 <span class="s2">    &lt;style&gt;</span>
 <span class="s2">        .responsive-table-wrapper table </span><span class="se">{{</span>
-<span class="s2">            border-collapse: collapse;</span>
-<span class="s2">            width: 100%;</span>
-<span class="s2">            min-width: 760px;</span>
+<span class="s2">            border-collapse: collapse !important;</span>
+<span class="s2">            width: max-content !important;</span>
+<span class="s2">            min-width: 760px !important;</span>
+<span class="s2">            max-width: none !important;</span>
+<span class="s2">            table-layout: auto !important;</span>
 <span class="s2">            font-size: clamp(11px, 1.6vw, 14px);</span>
 <span class="s2">            color: #111111 !important;</span>
 <span class="s2">            background-color: #ffffff !important;</span>
@@ -8517,7 +8592,9 @@ $$</p>
 <span class="s2">            text-align: center;</span>
 <span class="s2">            padding: 10px;</span>
 <span class="s2">            border-bottom: 1px solid #b8c2cc;</span>
-<span class="s2">            white-space: nowrap;</span>
+<span class="s2">            white-space: nowrap !important;</span>
+<span class="s2">            word-break: normal !important;</span>
+<span class="s2">            overflow-wrap: normal !important;</span>
 <span class="s2">        </span><span class="se">}}</span>
 <span class="s2">        .responsive-table-wrapper td </span><span class="se">{{</span>
 <span class="s2">            padding: 9px;</span>
@@ -8525,7 +8602,9 @@ $$</p>
 <span class="s2">            border-bottom: 1px solid #d9dee5;</span>
 <span class="s2">            color: #111111 !important;</span>
 <span class="s2">            font-weight: 500;</span>
-<span class="s2">            white-space: nowrap;</span>
+<span class="s2">            white-space: nowrap !important;</span>
+<span class="s2">            word-break: normal !important;</span>
+<span class="s2">            overflow-wrap: normal !important;</span>
 <span class="s2">        </span><span class="se">}}</span>
 <span class="s2">        .responsive-table-wrapper td:first-child </span><span class="se">{{</span>
 <span class="s2">            color: #000000 !important;</span>
@@ -8548,7 +8627,7 @@ $$</p>
 <span class="s2">                max-height: 420px !important;</span>
 <span class="s2">            </span><span class="se">}}</span>
 <span class="s2">            .responsive-table-wrapper table </span><span class="se">{{</span>
-<span class="s2">                min-width: 720px;</span>
+<span class="s2">                min-width: 720px !important;</span>
 <span class="s2">            </span><span class="se">}}</span>
 <span class="s2">            .responsive-table-wrapper th,</span>
 <span class="s2">            .responsive-table-wrapper td </span><span class="se">{{</span>
@@ -8601,6 +8680,7 @@ $$</p>
     <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">    &lt;h4&gt;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&lt;/h4&gt;</span>
 <span class="s2">    &lt;div class="responsive-table-wrapper" style="</span>
+<span class="s2">        --table-min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px !important;</span>
 <span class="s2">        width: 100%;</span>
 <span class="s2">        max-width: 100%;</span>
 <span class="s2">        overflow-x: auto;</span>
@@ -8612,9 +8692,11 @@ $$</p>
 <span class="s2">    "&gt;</span>
 <span class="s2">    &lt;style&gt;</span>
 <span class="s2">        .responsive-table-wrapper table </span><span class="se">{{</span>
-<span class="s2">            border-collapse: collapse;</span>
-<span class="s2">            width: 100%;</span>
-<span class="s2">            min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px;</span>
+<span class="s2">            border-collapse: collapse !important;</span>
+<span class="s2">            width: max-content !important;</span>
+<span class="s2">            min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px !important;</span>
+<span class="s2">            max-width: none !important;</span>
+<span class="s2">            table-layout: auto !important;</span>
 <span class="s2">            font-size: 14px;</span>
 <span class="s2">            color: #111111 !important;</span>
 <span class="s2">            background-color: #ffffff !important;</span>
@@ -8626,7 +8708,9 @@ $$</p>
 <span class="s2">            text-align: center;</span>
 <span class="s2">            padding: 9px;</span>
 <span class="s2">            border: 1px solid #b8c2cc;</span>
-<span class="s2">            white-space: nowrap;</span>
+<span class="s2">            white-space: nowrap !important;</span>
+<span class="s2">            word-break: normal !important;</span>
+<span class="s2">            overflow-wrap: normal !important;</span>
 <span class="s2">        </span><span class="se">}}</span>
 <span class="s2">        .responsive-table-wrapper td </span><span class="se">{{</span>
 <span class="s2">            padding: 9px;</span>
@@ -8634,7 +8718,9 @@ $$</p>
 <span class="s2">            border: 1px solid #d9dee5;</span>
 <span class="s2">            color: #111111 !important;</span>
 <span class="s2">            font-weight: 500;</span>
-<span class="s2">            white-space: nowrap;</span>
+<span class="s2">            white-space: nowrap !important;</span>
+<span class="s2">            word-break: normal !important;</span>
+<span class="s2">            overflow-wrap: normal !important;</span>
 <span class="s2">        </span><span class="se">}}</span>
 <span class="s2">        .responsive-table-wrapper tr:nth-child(even) td </span><span class="se">{{</span>
 <span class="s2">            background-color: #f3f6fa !important;</span>
@@ -8648,7 +8734,7 @@ $$</p>
 <span class="s2">        </span><span class="se">}}</span>
 <span class="s2">        @media (max-width: 768px) </span><span class="se">{{</span>
 <span class="s2">            .responsive-table-wrapper table </span><span class="se">{{</span>
-<span class="s2">                min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px;</span>
+<span class="s2">                min-width: </span><span class="si">{</span><span class="n">min_width_px</span><span class="si">}</span><span class="s2">px !important;</span>
 <span class="s2">                font-size: 13px;</span>
 <span class="s2">            </span><span class="se">}}</span>
 <span class="s2">            .responsive-table-wrapper th,</span>
@@ -8754,14 +8840,14 @@ $$</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 20:24:12,596 | INFO | Dataset cargado correctamente desde data\diabetes.csv
+<pre>2026-07-05 20:45:52,063 | INFO | Dataset cargado correctamente desde data\diabetes.csv
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 20:24:12,596 | INFO | Validación estructural completada correctamente.
+<pre>2026-07-05 20:45:52,063 | INFO | Validación estructural completada correctamente.
 </pre>
 </div>
 </div>
@@ -8805,6 +8891,7 @@ Columnas: ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin'
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <h4 style="margin-top: 12px; margin-bottom: 10px;">Dataset original completo: diabetes</h4>
 <div class="responsive-table-wrapper" style="
+        --table-min-width: 760px;
         max-height: 520px;
         max-width: 100%;
         overflow-x: auto;
@@ -8816,9 +8903,11 @@ Columnas: ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin'
     ">
 <style>
         .responsive-table-wrapper table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 760px;
+            border-collapse: collapse !important;
+            width: max-content !important;
+            min-width: 760px !important;
+            max-width: none !important;
+            table-layout: auto !important;
             font-size: clamp(11px, 1.6vw, 14px);
             color: #111111 !important;
             background-color: #ffffff !important;
@@ -8833,7 +8922,9 @@ Columnas: ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin'
             text-align: center;
             padding: 10px;
             border-bottom: 1px solid #b8c2cc;
-            white-space: nowrap;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
         }
         .responsive-table-wrapper td {
             padding: 9px;
@@ -8841,7 +8932,9 @@ Columnas: ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin'
             border-bottom: 1px solid #d9dee5;
             color: #111111 !important;
             font-weight: 500;
-            white-space: nowrap;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
         }
         .responsive-table-wrapper td:first-child {
             color: #000000 !important;
@@ -8864,7 +8957,7 @@ Columnas: ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin'
                 max-height: 420px !important;
             }
             .responsive-table-wrapper table {
-                min-width: 720px;
+                min-width: 720px !important;
             }
             .responsive-table-wrapper th,
             .responsive-table-wrapper td {
@@ -18511,14 +18604,14 @@ Vector y: (768,)
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 20:24:12,892 | INFO | Modelos construidos: ['Random Forest', 'SVM Lineal', 'Red Neuronal MLP']
+<pre>2026-07-05 20:45:52,364 | INFO | Modelos construidos: ['Random Forest', 'SVM Lineal', 'Red Neuronal MLP']
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>2026-07-05 20:24:12,893 | INFO | Se encontró caché de predicciones LOOCV: outputs\tablas\predicciones_loocv_cache.csv
+<pre>2026-07-05 20:45:52,364 | INFO | Se encontró caché de predicciones LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 </pre>
 </div>
 </div>
@@ -18678,7 +18771,7 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <span class="n">display_responsive_table</span><span class="p">(</span>
     <span class="n">metrics_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Tabla comparativa de métricas LOOCV"</span><span class="p">,</span>
-    <span class="n">min_width_px</span><span class="o">=</span><span class="mi">980</span><span class="p">,</span>
+    <span class="n">min_width_px</span><span class="o">=</span><span class="mi">1100</span><span class="p">,</span>
     <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -18697,6 +18790,7 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <h4>Tabla comparativa de métricas LOOCV</h4>
 <div class="responsive-table-wrapper" style="
+        --table-min-width: 1100px !important;
         width: 100%;
         max-width: 100%;
         overflow-x: auto;
@@ -18708,9 +18802,11 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
     ">
 <style>
         .responsive-table-wrapper table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 980px;
+            border-collapse: collapse !important;
+            width: max-content !important;
+            min-width: 1100px !important;
+            max-width: none !important;
+            table-layout: auto !important;
             font-size: 14px;
             color: #111111 !important;
             background-color: #ffffff !important;
@@ -18722,7 +18818,9 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
             text-align: center;
             padding: 9px;
             border: 1px solid #b8c2cc;
-            white-space: nowrap;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
         }
         .responsive-table-wrapper td {
             padding: 9px;
@@ -18730,7 +18828,9 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
             border: 1px solid #d9dee5;
             color: #111111 !important;
             font-weight: 500;
-            white-space: nowrap;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
         }
         .responsive-table-wrapper tr:nth-child(even) td {
             background-color: #f3f6fa !important;
@@ -18744,7 +18844,7 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
         }
         @media (max-width: 768px) {
             .responsive-table-wrapper table {
-                min-width: 980px;
+                min-width: 1100px !important;
                 font-size: 13px;
             }
             .responsive-table-wrapper th,
@@ -19184,6 +19284,7 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <h4>Importancia de variables - Random Forest</h4>
 <div class="responsive-table-wrapper" style="
+        --table-min-width: 620px !important;
         width: 100%;
         max-width: 100%;
         overflow-x: auto;
@@ -19195,9 +19296,11 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
     ">
 <style>
         .responsive-table-wrapper table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 620px;
+            border-collapse: collapse !important;
+            width: max-content !important;
+            min-width: 620px !important;
+            max-width: none !important;
+            table-layout: auto !important;
             font-size: 14px;
             color: #111111 !important;
             background-color: #ffffff !important;
@@ -19209,7 +19312,9 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
             text-align: center;
             padding: 9px;
             border: 1px solid #b8c2cc;
-            white-space: nowrap;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
         }
         .responsive-table-wrapper td {
             padding: 9px;
@@ -19217,7 +19322,9 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
             border: 1px solid #d9dee5;
             color: #111111 !important;
             font-weight: 500;
-            white-space: nowrap;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
         }
         .responsive-table-wrapper tr:nth-child(even) td {
             background-color: #f3f6fa !important;
@@ -19231,7 +19338,7 @@ Caché LOOCV: outputs\tablas\predicciones_loocv_cache.csv
         }
         @media (max-width: 768px) {
             .responsive-table-wrapper table {
-                min-width: 620px;
+                min-width: 620px !important;
                 font-size: 13px;
             }
             .responsive-table-wrapper th,
